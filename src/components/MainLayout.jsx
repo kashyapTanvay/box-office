@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import Navs from './Navs';
 import AppTittle from './AppTittle';
-
-export default function MainLayout() {
+const MainLayout = () => {
   return (
     <div>
-      <AppTittle />
       <Navs />
+      <AppTittle />
       <Outlet />
     </div>
   );
-}
+};
+
+export default MainLayout;
