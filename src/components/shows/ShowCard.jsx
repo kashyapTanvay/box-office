@@ -1,11 +1,26 @@
 import { styled } from 'styled-components';
 import { SearchCard, SearchImgWrapper } from '../common/SearchCard';
 import { StarIcon } from '../common/StarIcon';
+import { useRef } from 'react';
 
 const ShowCard = ({ name, image, summary, id, onStarMeClick, isStarred }) => {
   const strippedSummary = summary
     ? summary.split(' ').slice(0, 10).join(' ').replace(/<.+?>/g, '') + '...'
     : 'No Drescription';
+
+  const starBtnRef = useRef();
+  const handleStarClick = () => {
+    onStarMeClick(id);
+    const starBtnEl = starBtnRef.current;
+    if (!starBtnEl) {
+      return;
+    }
+    if (isStarred) {
+      starBtnEl.classList.remove('animate');
+    } else {
+      starBtnEl.classList.add('animate');
+    }
+  };
 
   return (
     <SearchCard>
@@ -20,13 +35,8 @@ const ShowCard = ({ name, image, summary, id, onStarMeClick, isStarred }) => {
         <a href={`/show/${id}`} target="_blank" rel="noreferrer">
           Read More
         </a>
-        <StarBtn
-          type="button"
-          onClick={() => onStarMeClick(id)}
-          className={isStarred && 'animate'}
-        >
+        <StarBtn ref={starBtnRef} type="button" onClick={handleStarClick}>
           <StarIcon active={isStarred} />
-          {/* {isStarred ? 'UNSTAR' : 'STAR'} */}
         </StarBtn>
       </ActionSection>
     </SearchCard>
