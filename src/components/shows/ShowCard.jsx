@@ -20,7 +20,11 @@ const ShowCard = ({ name, image, summary, id, onStarMeClick, isStarred }) => {
         <a href={`/show/${id}`} target="_blank" rel="noreferrer">
           Read More
         </a>
-        <StarBtn type="button" onClick={() => onStarMeClick(id)}>
+        <StarBtn
+          type="button"
+          onClick={() => onStarMeClick(id)}
+          className={isStarred && 'animate'}
+        >
           <StarIcon active={isStarred} />
           {/* {isStarred ? 'UNSTAR' : 'STAR'} */}
         </StarBtn>
@@ -57,5 +61,21 @@ const StarBtn = styled.button`
   align-items: center;
   &:hover {
     cursor: pointer;
+  }
+  &.animate {
+    ${StarIcon} {
+      animation: increase 0.75s ease-in forwards;
+      @keyframes increase {
+        0% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(3) rotate(45deg);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+    }
   }
 `;
